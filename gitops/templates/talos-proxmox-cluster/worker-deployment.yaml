@@ -31,7 +31,7 @@ spec:
   template:
     spec:
       generateType: worker
-      talosVersion: v1.13.8
+      talosVersion: v1.13.9
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate
