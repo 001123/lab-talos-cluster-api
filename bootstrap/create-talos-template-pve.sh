@@ -63,6 +63,9 @@ qm create "${TEMPLATE_VMID}" \
   --memory "${MEMORY_MB}" \
   --cores "${CORES}" \
   --cpu host \
+  --bios ovmf \
+  --machine q35 \
+  --efidisk0 "${PROXMOX_DISK_STORAGE}:0,efitype=4m,pre-enrolled-keys=0" \
   --net0 "virtio,bridge=${NETWORK_BRIDGE}" \
   --ostype l26 \
   --scsihw virtio-scsi-pci \
