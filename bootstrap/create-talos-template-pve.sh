@@ -76,11 +76,15 @@ qm create "${TEMPLATE_VMID}" \
 echo "💾 4. Importing disk image into ${PROXMOX_DISK_STORAGE}..."
 qm importdisk "${TEMPLATE_VMID}" "${RAW_FILE}" "${PROXMOX_DISK_STORAGE}"
 
-DISK_NAME="vm-${TEMPLATE_VMID}-disk-0"
-
 # 7. Attach disk and set boot order
 echo "🔗 5. Attaching disk to scsi0 and setting boot order..."
-qm set "${TEMPLATE_VMID}" --scsihw virtio-scsi-pci --scsi0 "${PROXMOX_DISK_STORAGE}:${DISK_NAME},discard=on,ssd=1"
+IMPORTED_DISK=$(qm config "${TEMPLATE_VMID}" | grep '^unused[0-9]:' | awk '{print $2}' | head -n1)
+if [[ -n "${IMPORTED_DISK}" ]]; then
+  qm set "${TEMPLATE_VMID}" --scsihw virtio-scsi-pci --scsi0 "${IMPORTED_DISK},discard=on,ssd=1"
+else
+  echo "❌ Error: Could not locate imported disk for VM ${TEMPLATE_VMID}"
+  exit 1
+fi
 qm set "${TEMPLATE_VMID}" --boot order=scsi0
 
 # 8. Convert to Proxmox Template
