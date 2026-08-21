@@ -36,9 +36,11 @@ kind: MachineDeployment
 metadata:
   name: talos-cluster-template-workers
 spec:
+  clusterName: dev-talos-cluster-template
   replicas: 2
   template:
     spec:
+      clusterName: dev-talos-cluster-template
       bootstrap:
         configRef:
           name: dev-talos-cluster-template-worker-config

@@ -23,7 +23,6 @@ metadata:
 spec:
   template:
     spec:
-      sourceNode: pve-pc
       templateSelector:
         matchTags:
           - talos
