@@ -1,0 +1,34 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+!terraform.tfvars.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Talos & Kubernetes Credentials
+kubeconfig
+talosconfig
+*.kubeconfig
+*.talosconfig
+secrets.yaml
+
+# SOPS / Age Keys
+age.agekey
+*.agekey
+*.key
+
+# OS & Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

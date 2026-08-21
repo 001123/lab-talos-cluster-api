@@ -1,0 +1,16 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: flux-system
+spec:
+  distribution:
+    version: "2.x"
+    registry: "ghcr.io/fluxcd"
+  sync:
+    kind: GitRepository
+    # Update with your Git repository URL
+    url: "https://github.com/your-username/talos-cluster-api.git"
+    ref: "refs/heads/main"
+    path: "./gitops/clusters/management"
+    interval: 1m

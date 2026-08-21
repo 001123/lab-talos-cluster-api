@@ -1,0 +1,51 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: talos-cluster-template
+spec:
+  infrastructureRef:
+    name: dev-talos-cluster-template
+  controlPlaneRef:
+    name: dev-talos-cluster-template-control-plane
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxCluster
+metadata:
+  name: talos-cluster-template
+spec:
+  controlPlaneEndpoint:
+    host: 192.168.1.160
+    port: 6443
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+kind: TalosControlPlane
+metadata:
+  name: talos-cluster-template-control-plane
+spec:
+  replicas: 1
+  infrastructureTemplate:
+    name: dev-talos-cluster-template-cp-machine
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: talos-cluster-template-workers
+spec:
+  replicas: 2
+  template:
+    spec:
+      bootstrap:
+        configRef:
+          name: dev-talos-cluster-template-worker-config
+      infrastructureRef:
+        name: dev-talos-cluster-template-worker-machine
+---
+apiVersion: ipam.cluster.x-k8s.io/v1alpha2
+kind: InClusterIPPool
+metadata:
+  name: talos-cluster-template-ip-pool
+spec:
+  addresses:
+    - 192.168.1.160-192.168.1.175
+  subnet: 192.168.1.0/24
+  gateway: 192.168.1.1

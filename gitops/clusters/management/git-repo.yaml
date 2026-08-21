@@ -1,0 +1,17 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: talos-cluster-api-repo
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/001123/lab-talos-cluster-api.git
+  ref:
+    branch: main
+  ignore: |
+    # Ignore Terraform state, local credentials and documentation
+    /terraform/
+    /bootstrap/
+    /kubeconfig
+    /talosconfig
+    /*.md

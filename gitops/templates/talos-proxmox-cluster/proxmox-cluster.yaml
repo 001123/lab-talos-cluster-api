@@ -1,0 +1,11 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxCluster
+metadata:
+  name: talos-cluster-template
+  namespace: default
+spec:
+  controlPlaneEndpoint:
+    host: 192.168.1.150
+    port: 6443
+  credentialsSecretRef:
+    name: capmox-manager-credentials

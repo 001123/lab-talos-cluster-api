@@ -1,0 +1,42 @@
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+kind: TalosControlPlane
+metadata:
+  name: talos-cluster-template-control-plane
+  namespace: default
+spec:
+  version: v1.36.3
+  replicas: 1
+  infrastructureTemplate:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: ProxmoxMachineTemplate
+    name: talos-cluster-template-cp-machine
+  controlPlaneConfig:
+    talosVersion: v1.13.8
+    controlplane:
+      generateConfig:
+        talosVersion: v1.13.8
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: talos-cluster-template-cp-machine
+  namespace: default
+spec:
+  template:
+    spec:
+      node: pve
+      sockets: 1
+      cores: 2
+      memory: 4096
+      disks:
+        - datastore: local-lvm
+          size: 40
+          format: raw
+          interface: scsi0
+      network:
+        - bridge: vmbr0
+          model: virtio
+          ipPoolRef:
+            apiGroup: ipam.cluster.x-k8s.io
+            kind: InClusterIPPool
+            name: talos-cluster-template-ip-pool

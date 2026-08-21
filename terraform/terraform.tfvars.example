@@ -1,0 +1,37 @@
+# ==============================================================================
+# Proxmox VE Connection
+# ==============================================================================
+proxmox_endpoint  = "https://192.168.1.10:8006/"
+proxmox_api_token = "root@pam!talos=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+proxmox_insecure  = true
+proxmox_node_name = "pve"
+
+# Storage Pools
+proxmox_iso_datastore_id  = "local"
+proxmox_disk_datastore_id = "local-lvm"
+
+# ==============================================================================
+# Virtual Machine Hardware Configuration
+# ==============================================================================
+vm_id              = 800
+vm_name            = "talos-mgmt-cp-01"
+vm_cpu_cores       = 4
+vm_memory_mb       = 4096
+vm_disk_size_gb    = 40
+vm_network_bridge  = "vmbr0"
+vm_network_vlan_id = null
+
+# ==============================================================================
+# Talos Management Cluster Networking & Versions
+# ==============================================================================
+cluster_name       = "talos-mgmt"
+talos_version      = "v1.13.8"
+kubernetes_version = "v1.36.3"
+
+node_ip      = "192.168.1.50"
+node_ip_cidr = 24
+gateway_ip   = "192.168.1.1"
+nameservers  = ["1.1.1.1", "8.8.8.8"]
+
+allow_scheduling_on_control_planes = true
+output_directory                   = "."

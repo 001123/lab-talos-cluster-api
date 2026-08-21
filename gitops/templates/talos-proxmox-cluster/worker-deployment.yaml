@@ -1,0 +1,61 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: talos-cluster-template-workers
+  namespace: default
+spec:
+  clusterName: talos-cluster-template
+  replicas: 2
+  selector:
+    matchLabels: {}
+  template:
+    spec:
+      clusterName: talos-cluster-template
+      version: v1.36.3
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+          kind: TalosConfigTemplate
+          name: talos-cluster-template-worker-config
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+        kind: ProxmoxMachineTemplate
+        name: talos-cluster-template-worker-machine
+---
+apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+kind: TalosConfigTemplate
+metadata:
+  name: talos-cluster-template-worker-config
+  namespace: default
+spec:
+  template:
+    spec:
+      talosVersion: v1.13.8
+      worker:
+        generateConfig:
+          talosVersion: v1.13.8
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: talos-cluster-template-worker-machine
+  namespace: default
+spec:
+  template:
+    spec:
+      node: pve
+      sockets: 1
+      cores: 2
+      memory: 4096
+      disks:
+        - datastore: local-lvm
+          size: 40
+          format: raw
+          interface: scsi0
+      network:
+        - bridge: vmbr0
+          model: virtio
+          ipPoolRef:
+            apiGroup: ipam.cluster.x-k8s.io
+            kind: InClusterIPPool
+            name: talos-cluster-template-ip-pool
