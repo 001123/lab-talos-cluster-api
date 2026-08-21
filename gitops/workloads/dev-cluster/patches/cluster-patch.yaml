@@ -14,7 +14,7 @@ metadata:
   name: talos-cluster-template
 spec:
   controlPlaneEndpoint:
-    host: 192.168.1.160
+    host: 192.168.100.160
     port: 6443
 ---
 apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
@@ -46,6 +46,6 @@ metadata:
   name: talos-cluster-template-ip-pool
 spec:
   addresses:
-    - 192.168.1.160-192.168.1.175
-  subnet: 192.168.1.0/24
-  gateway: 192.168.1.1
+    - 192.168.100.160-192.168.100.175
+  subnet: 192.168.100.0/24
+  gateway: 192.168.100.1

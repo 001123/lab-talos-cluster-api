@@ -8,8 +8,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-KUBECONFIG_PATH="${KUBECONFIG:-${REPO_ROOT}/kubeconfig}"
-export KUBECONFIG="${KUBECONFIG_PATH}"
+if [[ -f "${REPO_ROOT}/terraform/kubeconfig" ]]; then
+  export KUBECONFIG="${REPO_ROOT}/terraform/kubeconfig"
+elif [[ -f "${REPO_ROOT}/kubeconfig" ]]; then
+  export KUBECONFIG="${REPO_ROOT}/kubeconfig"
+fi
 
 # Check for required CLI tools
 if ! command -v age-keygen &>/dev/null; then

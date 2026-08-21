@@ -8,16 +8,17 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-# Determine kubeconfig path
-KUBECONFIG_PATH="${KUBECONFIG:-${REPO_ROOT}/kubeconfig}"
+if [[ -f "${REPO_ROOT}/terraform/kubeconfig" ]]; then
+  export KUBECONFIG="${REPO_ROOT}/terraform/kubeconfig"
+elif [[ -f "${REPO_ROOT}/kubeconfig" ]]; then
+  export KUBECONFIG="${REPO_ROOT}/kubeconfig"
+fi
 
-if [[ ! -f "${KUBECONFIG_PATH}" ]]; then
-  echo "❌ Error: Kubeconfig file not found at: ${KUBECONFIG_PATH}"
+if [[ -z "${KUBECONFIG:-}" ]] || [[ ! -f "${KUBECONFIG}" ]]; then
+  echo "❌ Error: Kubeconfig file not found."
   echo "👉 Please run Terraform first ('terraform -chdir=terraform apply') to generate the cluster & kubeconfig."
   exit 1
 fi
-
-export KUBECONFIG="${KUBECONFIG_PATH}"
 
 # Check for required CLI tools
 for tool in kubectl clusterctl; do
