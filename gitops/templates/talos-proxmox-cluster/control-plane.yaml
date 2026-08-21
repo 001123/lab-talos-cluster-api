@@ -25,6 +25,7 @@ spec:
     spec:
       checks:
         skipCloudInitStatus: true
+        skipQemuGuestAgent: true
       templateSelector:
         matchTags:
           - talos
