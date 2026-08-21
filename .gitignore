@@ -25,6 +25,12 @@ age.agekey
 *.agekey
 *.key
 
+# Cluster API / Provider Secrets
+clusterctl.yaml
+bootstrap/clusterctl.yaml
+!clusterctl.yaml.example
+!bootstrap/clusterctl.yaml.example
+
 # OS & Editor
 .DS_Store
 .idea/

@@ -10,7 +10,7 @@ spec:
   sync:
     kind: GitRepository
     # Update with your Git repository URL
-    url: "https://github.com/your-username/talos-cluster-api.git"
+    url: "https://github.com/001123/lab-talos-cluster-api.git"
     ref: "refs/heads/main"
     path: "./gitops/clusters/management"
     interval: 1m
