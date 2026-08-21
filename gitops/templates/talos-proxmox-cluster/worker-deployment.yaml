@@ -18,7 +18,7 @@ spec:
           kind: TalosConfigTemplate
           name: talos-cluster-template-worker-config
       infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
         kind: ProxmoxMachineTemplate
         name: talos-cluster-template-worker-machine
 ---
@@ -30,12 +30,10 @@ metadata:
 spec:
   template:
     spec:
+      generateType: worker
       talosVersion: v1.13.8
-      worker:
-        generateConfig:
-          talosVersion: v1.13.8
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate
 metadata:
   name: talos-cluster-template-worker-machine
@@ -43,19 +41,20 @@ metadata:
 spec:
   template:
     spec:
-      node: pve
-      sockets: 1
-      cores: 2
-      memory: 4096
+      sourceNode: pve-pc
+      templateSelector:
+        matchTags:
+          - talos
+      numSockets: 1
+      numCores: 2
+      memoryMiB: 4096
       disks:
-        - datastore: local-lvm
-          size: 40
-          format: raw
-          interface: scsi0
+        bootVolume:
+          disk: scsi0
+          sizeGb: 40
       network:
-        - bridge: vmbr0
-          model: virtio
-          ipPoolRef:
-            apiGroup: ipam.cluster.x-k8s.io
-            kind: InClusterIPPool
-            name: talos-cluster-template-ip-pool
+        networkDevices:
+          - bridge: vmbr0
+            model: virtio
+
+

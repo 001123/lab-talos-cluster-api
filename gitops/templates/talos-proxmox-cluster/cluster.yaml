@@ -13,10 +13,11 @@ spec:
       cidrBlocks:
         - 10.96.0.0/12
   infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
     kind: ProxmoxCluster
     name: talos-cluster-template
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
     kind: TalosControlPlane
     name: talos-cluster-template-control-plane
+

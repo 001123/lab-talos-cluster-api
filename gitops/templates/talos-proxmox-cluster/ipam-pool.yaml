@@ -5,7 +5,6 @@ metadata:
   namespace: default
 spec:
   addresses:
-    - 192.168.1.150-192.168.1.180
-  subnet: 192.168.1.0/24
-  gateway: 192.168.1.1
+    - 192.168.100.151-192.168.100.180
+  gateway: 192.168.100.1
   prefix: 24
