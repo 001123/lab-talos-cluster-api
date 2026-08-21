@@ -41,6 +41,8 @@ metadata:
 spec:
   template:
     spec:
+      checks:
+        skipCloudInitStatus: true
       templateSelector:
         matchTags:
           - talos
