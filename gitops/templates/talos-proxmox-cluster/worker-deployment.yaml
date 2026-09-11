@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   clusterName: talos-cluster-template
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels: {}
   template:
@@ -53,7 +53,7 @@ spec:
       disks:
         bootVolume:
           disk: scsi0
-          sizeGb: 40
+          sizeGb: 16
       network:
         networkDevices:
           - bridge: vmbr0
