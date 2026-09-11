@@ -22,6 +22,16 @@ resource "proxmox_virtual_environment_vm" "talos_management" {
     timeout = "10m"
   }
 
+  bios    = "ovmf"
+  machine = "q35"
+
+  efi_disk {
+    datastore_id      = var.proxmox_disk_datastore_id
+    file_format       = "raw"
+    type              = "4m"
+    pre_enrolled_keys = false
+  }
+
   operating_system {
     type = "l26" # Linux 2.6 - 6.X kernel
   }
@@ -41,7 +51,7 @@ resource "proxmox_virtual_environment_vm" "talos_management" {
     iothread     = true
   }
 
-  scsi_hardware = "virtio-scsi-pci"
+  scsi_hardware = "virtio-scsi-single"
 
   network_device {
     bridge  = var.vm_network_bridge
