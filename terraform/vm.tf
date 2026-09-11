@@ -62,6 +62,7 @@ resource "proxmox_virtual_environment_vm" "talos_management" {
   boot_order = ["scsi0", "ide2"]
 
   started = true
+  on_boot = true
 
   lifecycle {
     ignore_changes = [
