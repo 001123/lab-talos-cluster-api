@@ -38,13 +38,23 @@ data "talos_client_configuration" "this" {
   endpoints            = [var.node_ip]
 }
 
+locals {
+  # When the VM boots from ISO in maintenance mode, it receives a DHCP IP.
+  # If reported by the QEMU Guest Agent, we use it as the initial apply endpoint,
+  # otherwise fallback to var.node_ip.
+  vm_initial_ip = try(
+    [for ip in flatten(proxmox_virtual_environment_vm.talos_management.ipv4_addresses) : ip if !startswith(ip, "127.") && !startswith(ip, "169.254.")][0],
+    var.node_ip
+  )
+}
+
 # 4. Apply Machine Configuration to the VM
 resource "talos_machine_configuration_apply" "controlplane" {
   depends_on                  = [proxmox_virtual_environment_vm.talos_management]
   client_configuration        = talos_machine_secrets.this.client_configuration
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
-  node                        = var.node_ip
-  endpoint                    = var.node_ip
+  node                        = local.vm_initial_ip
+  endpoint                    = local.vm_initial_ip
 }
 
 # 5. Bootstrap Single-Node etcd

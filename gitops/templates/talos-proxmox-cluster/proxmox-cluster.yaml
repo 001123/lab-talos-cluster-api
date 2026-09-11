@@ -5,17 +5,17 @@ metadata:
   namespace: default
 spec:
   controlPlaneEndpoint:
-    host: 192.168.100.150
+    host: 192.168.250.150
     port: 6443
   ipv4Config:
     addresses:
-      - 192.168.100.151-192.168.100.180
+      - 192.168.250.151-192.168.250.180
     prefix: 24
-    gateway: 192.168.100.1
+    gateway: 192.168.250.1
 
   dnsServers:
     - 1.1.1.1
     - 8.8.8.8
   allowedNodes:
-    - pve-pc
+    - pve-i5
 

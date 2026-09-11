@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 # Configuration defaults
-PROXMOX_NODE="${PROXMOX_NODE:-pve-pc}"
+PROXMOX_NODE="${PROXMOX_NODE:-pve-i5}"
 PROXMOX_DISK_STORAGE="${PROXMOX_DISK_STORAGE:-local-lvm}"
 PROXMOX_ISO_STORAGE="${PROXMOX_ISO_STORAGE:-local}"
 TEMPLATE_VMID="${TEMPLATE_VMID:-9000}"
