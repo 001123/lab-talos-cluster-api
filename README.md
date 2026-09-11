@@ -74,6 +74,7 @@ talos-cluster-api/
 │   ├── 00-create-talos-template.sh         # [Option A] Tạo Talos VM Template trên PVE qua REST API
 │   ├── create-talos-template-pve.sh        # [Option B] Tạo Talos VM Template chạy trực tiếp trên PVE Shell
 │   ├── cleanup-workload-vms-pve.sh         # Script dọn dẹp các VM Workload cũ trên PVE Shell
+│   ├── resync-workload-cluster.sh          # Script dọn dẹp trạng thái cũ & kích hoạt GitOps dựng lại cụm Workload
 │   ├── clusterctl.yaml.example             # Cấu hình mẫu providers và Proxmox credentials cho CAPI
 │   ├── 01-init-capi.sh                     # Script khởi tạo CAPI Core + Proxmox + Talos + IPAM
 │   ├── 02-setup-sops-age.sh                # Script sinh Age key, cấu hình .sops.yaml và tạo Secret
@@ -309,6 +310,7 @@ kubectl --kubeconfig=dev-cluster.kubeconfig get pods -A
 | **Kiểm tra Node Management** | `kubectl get nodes -o wide` |
 | **Quản trị OS qua Talos** | `talosctl --talosconfig=talosconfig -n <NODE_IP> dashboard` |
 | **Xem trạng thái CAPI Clusters** | `kubectl get cluster,machinedeployment,machine` |
+| **Tái tạo / Re-sync cụm Workload** | `./bootstrap/resync-workload-cluster.sh [cluster-name]` |
 | **Lấy Kubeconfig Workload** | `clusterctl get kubeconfig <cluster-name> > <cluster-name>.kubeconfig` |
 | **Xem Kustomization Flux** | `flux get kustomizations` |
 | **Mở Flux UI Dashboard** | `kubectl -n flux-system port-forward svc/flux-operator 9080:9080` |
