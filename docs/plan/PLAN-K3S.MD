@@ -30,7 +30,7 @@ Tài liệu thiết kế kiến trúc và hướng dẫn chuyển đổi cụm *
                                   |  |   - CAPMOX (Proxmox Infrastructure)        |  |
                                   |  |   - CABPT & CACCPT (Talos Bootstrap & CP)  |  |
                                   |  |   - In-Cluster IPAM Provider               |  |
-                                  |  |   - Flux Operator (v0.58.1) + SOPS (Age)   |  |
+                                  |  |   - Flux Operator (v0.60.0) + SOPS (Age)   |  |
                                   |  +---------------------+----------------------+  |
                                   +------------------------|-------------------------+
                                                            |
@@ -85,7 +85,7 @@ talos-cluster-api/
 │   ├── clusterctl.yaml.example             # Cấu hình CAPI providers & Proxmox credentials
 │   ├── 01-init-capi.sh                     # Script init CAPI Core + Proxmox + Talos + IPAM
 │   ├── 02-setup-sops-age.sh                # Script sinh Age key & tạo Secret cho SOPS
-│   └── 03-install-flux-operator.sh         # Script cài đặt Flux Operator v0.58.1 & apply FluxInstance
+│   └── 03-install-flux-operator.sh         # Script cài đặt Flux Operator v0.60.0 & apply FluxInstance
 │
 └── gitops/                                 # TẦNG 3: GITOPS WORKLOAD CLUSTERS & ADDONS
     ├── flux-system/
@@ -180,7 +180,7 @@ runcmd:
 
 #### 3. Thiết lập SOPS & Flux Operator (`02-setup-sops-age.sh` & `03-install-flux-operator.sh`)
 - Sinh khóa Age, tạo Kubernetes Secret `sops-age` trên K3s.
-- Cài đặt Helm chart ControlPlane Flux Operator (v0.58.1).
+- Cài đặt Helm chart ControlPlane Flux Operator (v0.60.0).
 - Apply `gitops/flux-system/flux-instance.yaml` để kích hoạt Flux controllers trên K3s.
 
 ---

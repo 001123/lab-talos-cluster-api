@@ -94,15 +94,15 @@ variable "cluster_name" {
 }
 
 variable "talos_version" {
-  description = "Talos OS version (e.g. v1.13.8)"
+  description = "Talos OS version (e.g. v1.14.0)"
   type        = string
-  default     = "v1.13.8"
+  default     = "v1.14.0"
 }
 
 variable "kubernetes_version" {
-  description = "Kubernetes version deployed by Talos (e.g. v1.36.3)"
+  description = "Kubernetes version deployed by Talos (e.g. v1.37.0)"
   type        = string
-  default     = "v1.36.3"
+  default     = "v1.37.0"
 }
 
 variable "node_ip" {

@@ -1,6 +1,6 @@
 # Talos Management Cluster trên Proxmox với Cluster API & Flux Operator GitOps
 
-Dự án tự động hóa triển khai hạ tầng Kubernetes từ tầng Bare-Metal/Virtualization (Proxmox VE), khởi tạo **Talos Single-Node Management Cluster**, cài đặt **Cluster API (CAPI)** với Proxmox Provider (CAPMOX v1alpha2) và vận hành GitOps an toàn thông qua **ControlPlane Flux Operator** (v0.58.1) kết hợp **Mozilla SOPS + Age**.
+Dự án tự động hóa triển khai hạ tầng Kubernetes từ tầng Bare-Metal/Virtualization (Proxmox VE), khởi tạo **Talos Single-Node Management Cluster**, cài đặt **Cluster API (CAPI)** với Proxmox Provider (CAPMOX v1alpha2) và vận hành GitOps an toàn thông qua **ControlPlane Flux Operator** (v0.60.0) kết hợp **Mozilla SOPS + Age**.
 
 ---
 
@@ -12,13 +12,13 @@ Dự án tự động hóa triển khai hạ tầng Kubernetes từ tầng Bare-
                                   |                                                    |
                                   |  +----------------------------------------------+  |
                                   |  |     Talos Management Cluster (Node 800)      |  |
-                                  |  |     - Talos OS v1.13.8/v1.13.9 (QEMU Agent)  |  |
-                                  |  |     - K8s v1.36.3 Control Plane              |  |
+                                  |  |     - Talos OS v1.14.0 (QEMU Agent)          |  |
+                                  |  |     - K8s v1.37.0 Control Plane              |  |
                                   |  |     - Core CAPI Controllers (v1beta1)        |  |
                                   |  |     - CAPMOX (Proxmox Provider v1alpha2)     |  |
                                   |  |     - CABPT & CACCPT (Talos v1alpha3)        |  |
                                   |  |     - In-Cluster IPAM Provider (v1alpha2)    |  |
-                                  |  |     - Flux Operator (v0.58.1) + SOPS (Age)   |  |
+                                  |  |     - Flux Operator (v0.60.0) + SOPS (Age)   |  |
                                   |  +----------------------+-----------------------+  |
                                   |                         |                          |
                                   |  +----------------------v-----------------------+  |
@@ -34,7 +34,7 @@ Dự án tự động hóa triển khai hạ tầng Kubernetes từ tầng Bare-
                                   |             Workload Cluster (e.g. dev)            |
                                   |  +-----------------------+  +-------------------+  |
                                   |  |  Control Plane VM(s)  |  |    Worker VMs     |  |
-                                  |  |  - Talos OS v1.13.9   |  |  - Talos v1.13.9  |  |
+                                  |  |  - Talos OS v1.14.0   |  |  - Talos v1.14.0  |  |
                                   |  |  - Static VIP (eth0)  |  |  - Flannel CNI    |  |
                                   |  |  - Flannel CNI        |  |  - Talos CCM      |  |
                                   |  +-----------------------+  +-------------------+  |
@@ -77,7 +77,7 @@ talos-cluster-api/
 │   ├── clusterctl.yaml.example             # Cấu hình mẫu providers và Proxmox credentials cho CAPI
 │   ├── 01-init-capi.sh                     # Script khởi tạo CAPI Core + Proxmox + Talos + IPAM
 │   ├── 02-setup-sops-age.sh                # Script sinh Age key, cấu hình .sops.yaml và tạo Secret
-│   └── 03-install-flux-operator.sh         # Script cài đặt Flux Operator v0.58.1 và apply FluxInstance
+│   └── 03-install-flux-operator.sh         # Script cài đặt Flux Operator v0.60.0 và apply FluxInstance
 │
 └── gitops/                                 # TẦNG 3: GITOPS WORKLOAD CLUSTERS & ADDONS
     ├── flux-system/
@@ -184,7 +184,7 @@ Copy file `bootstrap/create-talos-template-pve.sh` lên Proxmox host qua SSH ho�
 # Trên Proxmox VE Host:
 bash /path/to/create-talos-template-pve.sh
 ```
-*Script này sẽ tải disk image `nocloud-amd64` v1.13.9 kèm extension `siderolabs/qemu-guest-agent`, cấu hình OVMF UEFI BIOS, Q35 machine type, gắn EFI disk và chuyển đổi thành VM Template `9000` với tag `talos`.*
+*Script này sẽ tải disk image `nocloud-amd64` v1.14.0 kèm extension `siderolabs/qemu-guest-agent`, cấu hình OVMF UEFI BIOS, Q35 machine type, gắn EFI disk và chuyển đổi thành VM Template `9000` với tag `talos`.*
 
 ---
 
@@ -232,7 +232,7 @@ Script sẽ:
 
 ---
 
-### Bước 5: Cài đặt ControlPlane Flux Operator v0.58.1
+### Bước 5: Cài đặt ControlPlane Flux Operator v0.60.0
 
 Chạy script triển khai Flux Operator:
 ```bash
@@ -240,7 +240,7 @@ Chạy script triển khai Flux Operator:
 ```
 
 Sau khi hoàn tất:
-- Flux Operator v0.58.1 được cài đặt qua Helm OCI.
+- Flux Operator v0.60.0 được cài đặt qua Helm OCI.
 - Resource `FluxInstance` được kích hoạt để bắt đầu quản lý vòng đời GitOps.
 - Bật Dashboard giao diện web của Flux Operator (Flux Status Page):
   ```bash

@@ -33,7 +33,7 @@ spec:
   controlPlaneConfig:
     controlplane:
       generateType: controlplane
-      talosVersion: v1.13.9
+      talosVersion: v1.14.0
       strategicPatches:
         - |
           machine:

@@ -4,7 +4,7 @@ metadata:
   name: talos-cluster-template-control-plane
   namespace: default
 spec:
-  version: v1.36.3
+  version: v1.37.0
   replicas: 1
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
@@ -13,7 +13,7 @@ spec:
   controlPlaneConfig:
     controlplane:
       generateType: controlplane
-      talosVersion: v1.13.9
+      talosVersion: v1.14.0
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate

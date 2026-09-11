@@ -21,7 +21,7 @@ Xây dựng hệ thống quản trị Kubernetes hoàn chỉnh từ tầng hạ 
      - **Control Plane Provider**: Talos (`cacppt` - Siderolabs).
      - **IPAM Provider**: In-Cluster IPAM (`capi-ipam-in-cluster`).
    - Cấu hình Kubernetes Secret chứa Proxmox API Token để CAPI giao tiếp với Proxmox VE.
-   - Cài đặt **Flux Operator** ([`controlplaneio-fluxcd/flux-operator`](https://github.com/controlplaneio-fluxcd/flux-operator/releases/tag/v0.58.1) v0.58.1).
+   - Cài đặt **Flux Operator** ([`controlplaneio-fluxcd/flux-operator`](https://github.com/controlplaneio-fluxcd/flux-operator/releases/tag/v0.60.0) v0.60.0).
    - Thiết lập **Mozilla SOPS + Age** để mã hóa / giải mã secrets an toàn trực tiếp trong kho Git.
 
 3. **Tầng Vận hành Khai báo (GitOps - Workload Clusters & Add-ons)**:
@@ -59,7 +59,7 @@ talos-cluster-api/
 │   ├── clusterctl.yaml.example             # Cấu hình CAPI providers & Proxmox credentials
 │   ├── 01-init-capi.sh                     # Script kiểm tra kết nối và chạy clusterctl init
 │   ├── 02-setup-sops-age.sh                # Script sinh key Age và tạo Secret giải mã cho Flux
-│   └── 03-install-flux-operator.sh         # Script cài đặt flux-operator v0.58.1 & apply FluxInstance
+│   └── 03-install-flux-operator.sh         # Script cài đặt flux-operator v0.60.0 & apply FluxInstance
 │
 └── gitops/                                 # TẦNG 3: GITOPS WORKLOAD CLUSTERS & ADDONS
     ├── flux-system/
@@ -125,8 +125,8 @@ talos-cluster-api/
    - Sinh cặp khóa Age (`age-keygen -o age.agekey`).
    - Đẩy Private key thành Secret `sops-age` vào namespace `flux-system`.
    - Cấu hình `.sops.yaml` ở thư mục gốc để các thành viên nhóm có thể mã hóa secrets trước khi git commit.
-2. **Cài đặt ControlPlane Flux Operator v0.58.1 (`03-install-flux-operator.sh`)**:
-   - Triển khai `flux-operator` v0.58.1 lên cụm.
+2. **Cài đặt ControlPlane Flux Operator v0.60.0 (`03-install-flux-operator.sh`)**:
+   - Triển khai `flux-operator` v0.60.0 lên cụm.
    - Khởi tạo `FluxInstance` (CRD của Flux Operator) cấu hình đồng bộ từ Git và kích hoạt giải mã SOPS tự động qua secret `sops-age`.
 
 ---
@@ -159,10 +159,10 @@ talos-cluster-api/
 | **Proxmox VE** | 9.x+ | Hypervisor |
 | **Terraform Proxmox Provider** | `bpg/proxmox` `0.111.1` | Quản lý VM, Storage, File |
 | **Terraform Talos Provider** | `siderolabs/talos` `0.11.0` | Quản lý Secret, Config, Bootstrap |
-| **Talos OS** | `v1.13.8` (hoặc tùy biến qua biến) | OS cho Management & Workload |
-| **Kubernetes** | `v1.36.3` (hoặc tùy biến qua biến) | K8s Control Plane |
-| **Cluster API (CAPI)** | `v1.14.x`| Core CAPI |
-| **CAPI Proxmox Provider (CAPMOX)** | `v0.9.0` (IONOS) | Proxmox Infrastructure Provider |
-| **CAPI Talos Providers** | CABPT `v0.6.12`, CACCPT `v0.5.13` | Talos Bootstrap & Control Plane |
-| **Flux Operator** | `v0.58.1` (ControlPlane) | GitOps Operator |
+| **Talos OS** | `v1.14.0` (hoặc tùy biến qua biến) | OS cho Management & Workload |
+| **Kubernetes (Talos)** | `v1.37.0` | Cụm Management & Workload do Talos bootstrap |
+| **CAPI Core** | `v1.10.x` | Điều phối hạ tầng |
+| **CAPMOX** | `v0.1.x` | Provider tương tác Proxmox REST API |
+| **CABPT & CACCPT** | `v0.6.x` | Talos Bootstrap & Control Plane provider |
+| **Flux Operator** | `v0.60.0` (ControlPlane) | GitOps Operator |
 | **Secret Encryption** | Mozilla SOPS + Age | Mã hóa Secret an toàn trong Git |

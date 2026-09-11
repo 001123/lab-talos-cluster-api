@@ -22,7 +22,7 @@ for tool in helm kubectl; do
   fi
 done
 
-FLUX_OPERATOR_VERSION="0.58.1"
+FLUX_OPERATOR_VERSION="0.60.0"
 
 # Temporary clean docker config directory to prevent issues with osxkeychain credential helpers
 TMP_DOCKER_DIR="$(mktemp -d)"
