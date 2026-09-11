@@ -7,9 +7,9 @@ set -euo pipefail
 # ==============================================================================
 
 # Configurable Parameters (can be overridden via environment variables)
-TALOS_VERSION="${TALOS_VERSION:-v1.13.9}"
+TALOS_VERSION="${TALOS_VERSION:-v1.13.8}"
 # Talos factory schematic ID containing siderolabs/qemu-guest-agent extension:
-TALOS_SCHEMATIC_ID="${TALOS_SCHEMATIC_ID:-376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba}"
+TALOS_SCHEMATIC_ID="${TALOS_SCHEMATIC_ID:-ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515}"
 PROXMOX_DISK_STORAGE="${PROXMOX_DISK_STORAGE:-local-lvm}"
 TEMPLATE_VMID="${TEMPLATE_VMID:-9000}"
 TEMPLATE_NAME="${TEMPLATE_NAME:-talos-${TALOS_VERSION}-template}"

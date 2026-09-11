@@ -42,6 +42,7 @@ fi
 
 echo "🚀 2. Initializing Cluster API with Proxmox, Talos & In-Cluster IPAM providers..."
 clusterctl init \
+  --config "${CLUSTERCTL_CONFIG:-${SCRIPT_DIR}/clusterctl.yaml}" \
   --infrastructure proxmox \
   --control-plane talos \
   --bootstrap talos \
