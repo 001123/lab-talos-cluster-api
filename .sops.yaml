@@ -1,6 +1,6 @@
 # SOPS Configuration for GitOps Manifests
 creation_rules:
   - path_regex: gitops/.*\.sops\.ya?ml$
-    age: "age1rusvf26jvcv855lunxcfgectmm5va087au4s7au09hvy6h290qdqptextv"
+    age: "age1mznrg444sxs38v5kdtply07lhl0fqumpy380j22eje3hntpzsqzssgeghh"
   - path_regex: gitops/.*secret.*\.ya?ml$
-    age: "age1rusvf26jvcv855lunxcfgectmm5va087au4s7au09hvy6h290qdqptextv"
+    age: "age1mznrg444sxs38v5kdtply07lhl0fqumpy380j22eje3hntpzsqzssgeghh"
